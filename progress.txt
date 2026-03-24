@@ -1,0 +1,3 @@
+2026-03-24 - Task completed: Define the initial OpenAPI 3.0 contract for MVP endpoints.
+- Added `openapi.yaml` with paths for `/health`, `/players`, `/matches`, and `/leaderboard`.
+- Added component schemas for players, matches (including optional second player per side), leaderboard entries, and standard response/error payloads.

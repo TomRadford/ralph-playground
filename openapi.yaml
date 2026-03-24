@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: Office Foosball API
+  version: 0.1.0
+  description: API contract for the office foosball MVP.
+servers:
+  - url: /
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+  /players:
+    get:
+      operationId: listPlayers
+      summary: List all players
+      responses:
+        "200":
+          description: Players in creation order.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayersResponse"
+    post:
+      operationId: createPlayer
+      summary: Create a player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePlayerRequest"
+      responses:
+        "201":
+          description: Player created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Player"
+        "400":
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /matches:
+    get:
+      operationId: listMatches
+      summary: List all matches
+      responses:
+        "200":
+          description: Matches in reverse chronological order.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchesResponse"
+    post:
+      operationId: createMatch
+      summary: Record a match result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMatchRequest"
+      responses:
+        "201":
+          description: Match created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Match"
+        "400":
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /leaderboard:
+    get:
+      operationId: getLeaderboard
+      summary: Get aggregated player standings
+      responses:
+        "200":
+          description: Standings derived from all logged matches.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaderboardResponse"
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    Player:
+      type: object
+      required:
+        - id
+        - name
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        createdAt:
+          type: string
+          format: date-time
+    CreatePlayerRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+    MatchSide:
+      type: object
+      required:
+        - player1Id
+      properties:
+        player1Id:
+          type: string
+          format: uuid
+        player2Id:
+          type: string
+          format: uuid
+          nullable: true
+    Match:
+      type: object
+      required:
+        - id
+        - left
+        - right
+        - leftScore
+        - rightScore
+        - playedAt
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        left:
+          $ref: "#/components/schemas/MatchSide"
+        right:
+          $ref: "#/components/schemas/MatchSide"
+        leftScore:
+          type: integer
+          format: int32
+          minimum: 0
+        rightScore:
+          type: integer
+          format: int32
+          minimum: 0
+        playedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    CreateMatchRequest:
+      type: object
+      required:
+        - left
+        - right
+        - leftScore
+        - rightScore
+        - playedAt
+      properties:
+        left:
+          $ref: "#/components/schemas/MatchSide"
+        right:
+          $ref: "#/components/schemas/MatchSide"
+        leftScore:
+          type: integer
+          format: int32
+          minimum: 0
+        rightScore:
+          type: integer
+          format: int32
+          minimum: 0
+        playedAt:
+          type: string
+          format: date-time
+    LeaderboardEntry:
+      type: object
+      required:
+        - playerId
+        - playerName
+        - matches
+        - wins
+        - losses
+        - goalsFor
+        - goalsAgainst
+        - goalDifference
+      properties:
+        playerId:
+          type: string
+          format: uuid
+        playerName:
+          type: string
+        matches:
+          type: integer
+          format: int32
+          minimum: 0
+        wins:
+          type: integer
+          format: int32
+          minimum: 0
+        losses:
+          type: integer
+          format: int32
+          minimum: 0
+        goalsFor:
+          type: integer
+          format: int32
+        goalsAgainst:
+          type: integer
+          format: int32
+        goalDifference:
+          type: integer
+          format: int32
+    PlayersResponse:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Player"
+    MatchesResponse:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Match"
+    LeaderboardResponse:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/LeaderboardEntry"
