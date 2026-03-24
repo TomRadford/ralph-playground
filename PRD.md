@@ -116,4 +116,10 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 ---
 
+## Implementation update (2026-03-24-7)
+
+- add a makefile for running docker container
+- please allow me to delete players and matches
+- the UI needs to look more aeathetic and simpler at the same time with different routes for all the different sections
+
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
