@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import favicon from "$lib/assets/favicon.svg";
+	import { configureApiClient } from "$lib/configure-api-client";
 	import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
-	import { configureApiClient } from "$lib/api/configure-client";
 
 	let { children } = $props();
 

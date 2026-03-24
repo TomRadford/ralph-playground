@@ -68,6 +68,10 @@ export type LeaderboardResponse = {
     items: Array<LeaderboardEntry>;
 };
 
+export type PlayerIdPath = string;
+
+export type MatchIdPath = string;
+
 export type GetHealthData = {
     body?: never;
     path?: never;
@@ -125,6 +129,41 @@ export type CreatePlayerResponses = {
 
 export type CreatePlayerResponse = CreatePlayerResponses[keyof CreatePlayerResponses];
 
+export type DeletePlayerData = {
+    body?: never;
+    path: {
+        playerId: string;
+    };
+    query?: never;
+    url: '/players/{playerId}';
+};
+
+export type DeletePlayerErrors = {
+    /**
+     * Invalid player id.
+     */
+    400: ErrorResponse;
+    /**
+     * Player not found.
+     */
+    404: ErrorResponse;
+    /**
+     * Player is used in existing matches.
+     */
+    409: ErrorResponse;
+};
+
+export type DeletePlayerError = DeletePlayerErrors[keyof DeletePlayerErrors];
+
+export type DeletePlayerResponses = {
+    /**
+     * Player deleted.
+     */
+    204: void;
+};
+
+export type DeletePlayerResponse = DeletePlayerResponses[keyof DeletePlayerResponses];
+
 export type ListMatchesData = {
     body?: never;
     path?: never;
@@ -165,6 +204,37 @@ export type CreateMatchResponses = {
 };
 
 export type CreateMatchResponse = CreateMatchResponses[keyof CreateMatchResponses];
+
+export type DeleteMatchData = {
+    body?: never;
+    path: {
+        matchId: string;
+    };
+    query?: never;
+    url: '/matches/{matchId}';
+};
+
+export type DeleteMatchErrors = {
+    /**
+     * Invalid match id.
+     */
+    400: ErrorResponse;
+    /**
+     * Match not found.
+     */
+    404: ErrorResponse;
+};
+
+export type DeleteMatchError = DeleteMatchErrors[keyof DeleteMatchErrors];
+
+export type DeleteMatchResponses = {
+    /**
+     * Match deleted.
+     */
+    204: void;
+};
+
+export type DeleteMatchResponse = DeleteMatchResponses[keyof DeleteMatchResponses];
 
 export type GetLeaderboardData = {
     body?: never;

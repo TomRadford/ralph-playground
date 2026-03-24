@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateMatchData, CreateMatchErrors, CreateMatchResponses, CreatePlayerData, CreatePlayerErrors, CreatePlayerResponses, GetHealthData, GetHealthResponses, GetLeaderboardData, GetLeaderboardResponses, ListMatchesData, ListMatchesResponses, ListPlayersData, ListPlayersResponses } from './types.gen';
+import type { CreateMatchData, CreateMatchErrors, CreateMatchResponses, CreatePlayerData, CreatePlayerErrors, CreatePlayerResponses, DeleteMatchData, DeleteMatchErrors, DeleteMatchResponses, DeletePlayerData, DeletePlayerErrors, DeletePlayerResponses, GetHealthData, GetHealthResponses, GetLeaderboardData, GetLeaderboardResponses, ListMatchesData, ListMatchesResponses, ListPlayersData, ListPlayersResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -41,6 +41,11 @@ export const createPlayer = <ThrowOnError extends boolean = false>(options: Opti
 });
 
 /**
+ * Delete a player
+ */
+export const deletePlayer = <ThrowOnError extends boolean = false>(options: Options<DeletePlayerData, ThrowOnError>) => (options.client ?? client).delete<DeletePlayerResponses, DeletePlayerErrors, ThrowOnError>({ url: '/players/{playerId}', ...options });
+
+/**
  * List all matches
  */
 export const listMatches = <ThrowOnError extends boolean = false>(options?: Options<ListMatchesData, ThrowOnError>) => (options?.client ?? client).get<ListMatchesResponses, unknown, ThrowOnError>({ url: '/matches', ...options });
@@ -56,6 +61,11 @@ export const createMatch = <ThrowOnError extends boolean = false>(options: Optio
         ...options.headers
     }
 });
+
+/**
+ * Delete a match
+ */
+export const deleteMatch = <ThrowOnError extends boolean = false>(options: Options<DeleteMatchData, ThrowOnError>) => (options.client ?? client).delete<DeleteMatchResponses, DeleteMatchErrors, ThrowOnError>({ url: '/matches/{matchId}', ...options });
 
 /**
  * Get aggregated player standings

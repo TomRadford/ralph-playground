@@ -9,7 +9,7 @@ export function configureApiClient(): void {
 	}
 
 	client.setConfig({
-		baseUrl: browser ? "" : "http://localhost:8080"
+		baseUrl: browser ? window.location.origin : "http://localhost:8080"
 	});
 	isConfigured = true;
 }

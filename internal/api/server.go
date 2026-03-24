@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v5"
 )
 
@@ -157,6 +158,46 @@ func (s *server) CreatePlayer(ctx *echo.Context) error {
 	return ctx.JSON(http.StatusCreated, p)
 }
 
+func (s *server) DeletePlayer(ctx *echo.Context, playerID string) error {
+	if _, err := uuid.Parse(playerID); err != nil {
+		return ctx.JSON(http.StatusBadRequest, errorResponse{Message: "player id must be a valid uuid"})
+	}
+
+	var references int
+	if err := s.db.QueryRow(`
+		SELECT COUNT(1)
+		FROM matches
+		WHERE left_player1_id = ?
+			OR left_player2_id = ?
+			OR right_player1_id = ?
+			OR right_player2_id = ?
+	`, playerID, playerID, playerID, playerID).Scan(&references); err != nil {
+		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})
+	}
+
+	if references > 0 {
+		return ctx.JSON(http.StatusConflict, errorResponse{Message: "cannot delete player with logged matches; delete related matches first"})
+	}
+
+	result, err := s.db.Exec(`
+		DELETE FROM players
+		WHERE id = ?
+	`, playerID)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})
+	}
+	if rowsAffected == 0 {
+		return ctx.JSON(http.StatusNotFound, errorResponse{Message: "player not found"})
+	}
+
+	return ctx.NoContent(http.StatusNoContent)
+}
+
 func (s *server) ListMatches(ctx *echo.Context) error {
 	rows, err := s.db.Query(`
 		SELECT id, left_player1_id, left_player2_id, right_player1_id, right_player2_id,
@@ -235,6 +276,30 @@ func (s *server) CreateMatch(ctx *echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusCreated, m)
+}
+
+func (s *server) DeleteMatch(ctx *echo.Context, matchID string) error {
+	if _, err := uuid.Parse(matchID); err != nil {
+		return ctx.JSON(http.StatusBadRequest, errorResponse{Message: "match id must be a valid uuid"})
+	}
+
+	result, err := s.db.Exec(`
+		DELETE FROM matches
+		WHERE id = ?
+	`, matchID)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})
+	}
+	if rowsAffected == 0 {
+		return ctx.JSON(http.StatusNotFound, errorResponse{Message: "match not found"})
+	}
+
+	return ctx.NoContent(http.StatusNoContent)
 }
 
 func (s *server) GetLeaderboard(ctx *echo.Context) error {

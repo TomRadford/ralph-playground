@@ -50,6 +50,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /players/{playerId}:
+    delete:
+      operationId: deletePlayer
+      summary: Delete a player
+      parameters:
+        - $ref: "#/components/parameters/PlayerIdPath"
+      responses:
+        "204":
+          description: Player deleted.
+        "400":
+          description: Invalid player id.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Player not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Player is used in existing matches.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /matches:
     get:
       operationId: listMatches
@@ -83,6 +110,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /matches/{matchId}:
+    delete:
+      operationId: deleteMatch
+      summary: Delete a match
+      parameters:
+        - $ref: "#/components/parameters/MatchIdPath"
+      responses:
+        "204":
+          description: Match deleted.
+        "400":
+          description: Invalid match id.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Match not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /leaderboard:
     get:
       operationId: getLeaderboard
@@ -95,6 +143,21 @@ paths:
               schema:
                 $ref: "#/components/schemas/LeaderboardResponse"
 components:
+  parameters:
+    PlayerIdPath:
+      name: playerId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    MatchIdPath:
+      name: matchId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
   schemas:
     HealthResponse:
       type: object
