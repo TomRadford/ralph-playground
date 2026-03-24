@@ -6,3 +6,8 @@
 - Added initial Go backend structure (`go.mod`, `cmd/server/main.go`, `internal/api` package, `Makefile`).
 - Added `oapi-codegen` configuration and `go generate` hook to generate Echo server/types from `openapi.yaml`.
 - Implemented in-memory handlers for `/health`, `/players`, `/matches`, and `/leaderboard` following the OpenAPI contract.
+
+2026-03-24 - Task completed: Replace in-memory API storage with SQLite persistence.
+- Added SQLite-backed storage for players and matches, including schema initialization on startup.
+- Updated the API handlers to read/write players, matches, and leaderboard calculations from the database.
+- Added startup configuration for an environment-driven DB path (`SQLITE_PATH`, default `./data/foosball.db`) and included the SQLite driver dependency.
