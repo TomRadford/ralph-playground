@@ -1,3 +1,8 @@
 2026-03-24 - Task completed: Define the initial OpenAPI 3.0 contract for MVP endpoints.
 - Added `openapi.yaml` with paths for `/health`, `/players`, `/matches`, and `/leaderboard`.
 - Added component schemas for players, matches (including optional second player per side), leaderboard entries, and standard response/error payloads.
+
+2026-03-24 - Task completed: Scaffold the Go API server with Echo and OpenAPI-driven wiring.
+- Added initial Go backend structure (`go.mod`, `cmd/server/main.go`, `internal/api` package, `Makefile`).
+- Added `oapi-codegen` configuration and `go generate` hook to generate Echo server/types from `openapi.yaml`.
+- Implemented in-memory handlers for `/health`, `/players`, `/matches`, and `/leaderboard` following the OpenAPI contract.
