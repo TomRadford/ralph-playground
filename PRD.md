@@ -73,6 +73,16 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - Completed the highest-priority remaining MVP task in the web UI: users can now create players and record matches directly from the dashboard.
 - Added inline validation and feedback for both forms (required fields, score/date checks, duplicate-player prevention).
 - Connected successful writes to TanStack Query cache invalidation so players, matches, and leaderboard views refresh immediately.
+- Completed the highest-priority deployment task: added single-image Docker packaging that builds the SvelteKit SPA, embeds static assets into the Go binary, and runs API + UI together.
+- Added deployment docs and runtime defaults for persisted SQLite storage via `/data` volume mount (`SQLITE_PATH=/data/foosball.db`).
+
+- PLEASE USE Context7 to make sure that we're using the latest package version! (I see github.com/labstack/echo/v4 instead of v5 for some reason?)
+
+## Implementation update (2026-03-24-2)
+
+- PLEASE USE Context7 to make sure that we're using the latest package version! (I see github.com/labstack/echo/v4 instead of v5 for some reason?)
+- PLEASE FIX: `matchFormSuccess` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+  https://svelte.dev/e/non_reactive_update that dev server keep giving! MAKE SURE WE'RE USING SVELTE 5 BEST PRACTICES!!!
 
 ---
 
