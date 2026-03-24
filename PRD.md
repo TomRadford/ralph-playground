@@ -16,10 +16,10 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 ## Success criteria
 
-| Criterion | Definition |
-|-----------|------------|
-| **Portable** | `docker run` (with documented env/volume) starts the full app and persists data across restarts. |
-| **Usable** | A new user can create players, record a match, and see the leaderboard without docs. |
+| Criterion        | Definition                                                                                                  |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Portable**     | `docker run` (with documented env/volume) starts the full app and persists data across restarts.            |
+| **Usable**       | A new user can create players, record a match, and see the leaderboard without docs.                        |
 | **Maintainable** | API contract is defined in OpenAPI; frontend uses generated types and TanStack Query against that contract. |
 
 ## Target users
@@ -50,18 +50,18 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 ## Technical constraints (non-negotiable for this product)
 
-- **Backend:** Go, REST API described by **OpenAPI 3**, server wiring aligned with generated code (e.g. Chi + oapi-codegen).
+- **Backend:** Go, REST API described by **OpenAPI 3**, server wiring aligned with generated code (**Echo** + **oapi-codegen**).
 - **Persistence:** SQLite (file path configurable via environment).
 - **Frontend:** SvelteKit SPA; API client generated from the same OpenAPI spec (**hey-api** / openapi-ts) with **TanStack Query** for server state.
 - **Packaging:** Multi-stage build producing **one** Docker image; Go binary embeds built static assets.
 
 ## Risks and mitigations
 
-| Risk | Mitigation |
-|------|------------|
-| Spec drift between Go and TS | Single `openapi.yaml` in repo; codegen in build/Makefile. |
-| Data loss | Document volume mount for DB path; optional backup copy of SQLite file. |
-| “Wrong” stats rules | MVP uses simple rules (win/loss from team scores + player slots); document assumptions in UI or README if ambiguous. |
+| Risk                         | Mitigation                                                                                                           |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Spec drift between Go and TS | Single `openapi.yaml` in repo; codegen in build/Makefile.                                                            |
+| Data loss                    | Document volume mount for DB path; optional backup copy of SQLite file.                                              |
+| “Wrong” stats rules          | MVP uses simple rules (win/loss from team scores + player slots); document assumptions in UI or README if ambiguous. |
 
 ## Open decisions (defaults)
 
@@ -70,4 +70,4 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 ---
 
-*This PRD aligns with the engineering plan: OpenAPI-first stack, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query.*
+_This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
