@@ -1,0 +1,9 @@
+.git
+.gitignore
+.cursor
+data
+frontend/node_modules
+frontend/.svelte-kit
+frontend/build
+frontend/.vite
+**/.DS_Store

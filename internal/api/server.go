@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 type server struct {
@@ -90,11 +90,11 @@ func NewServer(db *sql.DB) (ServerInterface, error) {
 	return s, nil
 }
 
-func (s *server) GetHealth(ctx echo.Context) error {
+func (s *server) GetHealth(ctx *echo.Context) error {
 	return ctx.JSON(http.StatusOK, healthResponse{Status: "ok"})
 }
 
-func (s *server) ListPlayers(ctx echo.Context) error {
+func (s *server) ListPlayers(ctx *echo.Context) error {
 	rows, err := s.db.Query(`
 		SELECT id, name, created_at
 		FROM players
@@ -129,7 +129,7 @@ func (s *server) ListPlayers(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, playersResponse{Items: items})
 }
 
-func (s *server) CreatePlayer(ctx echo.Context) error {
+func (s *server) CreatePlayer(ctx *echo.Context) error {
 	var req createPlayerRequest
 	if err := ctx.Bind(&req); err != nil {
 		return ctx.JSON(http.StatusBadRequest, errorResponse{Message: "invalid request body"})
@@ -157,7 +157,7 @@ func (s *server) CreatePlayer(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, p)
 }
 
-func (s *server) ListMatches(ctx echo.Context) error {
+func (s *server) ListMatches(ctx *echo.Context) error {
 	rows, err := s.db.Query(`
 		SELECT id, left_player1_id, left_player2_id, right_player1_id, right_player2_id,
 		       left_score, right_score, played_at, created_at
@@ -184,7 +184,7 @@ func (s *server) ListMatches(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, matchesResponse{Items: items})
 }
 
-func (s *server) CreateMatch(ctx echo.Context) error {
+func (s *server) CreateMatch(ctx *echo.Context) error {
 	var req createMatchRequest
 	if err := ctx.Bind(&req); err != nil {
 		return ctx.JSON(http.StatusBadRequest, errorResponse{Message: "invalid request body"})
@@ -237,7 +237,7 @@ func (s *server) CreateMatch(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, m)
 }
 
-func (s *server) GetLeaderboard(ctx echo.Context) error {
+func (s *server) GetLeaderboard(ctx *echo.Context) error {
 	players, err := s.listPlayersForStats()
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, errorResponse{Message: "internal server error"})

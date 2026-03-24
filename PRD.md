@@ -88,6 +88,13 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 - THE UI IS SO UGLY. MAKE IT PRETTY AND USER FRIENDLY!
 
+## Implementation update (2026-03-24-4)
+
+- Completed the highest-priority dependency task: migrated backend routing/runtime usage from `github.com/labstack/echo/v4` to `github.com/labstack/echo/v5` (`v5.0.4`) using Context7-verified current docs.
+- Updated all Echo imports and handler signatures to the v5 context model (`*echo.Context`) across server wiring and OpenAPI server interface code.
+- Replaced removed v4 logger middleware usage with v5 request logger middleware and resolved v5 logger API differences in frontend asset bootstrapping.
+- Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check`.
+
 ---
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._

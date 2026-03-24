@@ -21,3 +21,13 @@
 - Updated `frontend/src/routes/+page.svelte` to add an "Add player" form and a "Log match" form using the generated OpenAPI client and TanStack Query mutations.
 - Added client-side validation and user feedback for form errors/success, including duplicate-player prevention within a match.
 - Added query invalidation after successful mutations so players, matches, and leaderboard data refresh immediately.
+
+2026-03-24 - Task completed: Package API + web UI into a single Docker image with embedded frontend assets.
+- Added a multi-stage root `Dockerfile` that builds the SvelteKit app, copies the static bundle into `cmd/server/web/dist`, and compiles one Go server binary that serves API + SPA.
+- Updated SvelteKit to `@sveltejs/adapter-static` (SPA fallback `200.html`) and added client-only layout settings for static output.
+- Added Echo static/fallback routing for embedded assets and documented `docker build`/`docker run` usage with persisted SQLite via `/data` volume.
+
+2026-03-24 - Task completed: Migrate backend from Echo v4 to Echo v5.
+- Upgraded Go dependency to `github.com/labstack/echo/v5` (`v5.0.4`) and updated imports/signatures from `echo.Context` to `*echo.Context`.
+- Updated middleware usage for Echo v5 by replacing removed v4 request logging middleware with `middleware.RequestLogger()`.
+- Adjusted startup/bootstrapping code for v5 API changes and revalidated the project with `go test ./...` and `npm --prefix frontend run check`.

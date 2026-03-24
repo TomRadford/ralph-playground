@@ -1,16 +1,16 @@
 package api
 
-import "github.com/labstack/echo/v4"
+import "github.com/labstack/echo/v5"
 
 // ServerInterface mirrors the handlers generated from openapi.yaml.
 // It is intentionally small and can be replaced by oapi-codegen output.
 type ServerInterface interface {
-	GetHealth(ctx echo.Context) error
-	ListPlayers(ctx echo.Context) error
-	CreatePlayer(ctx echo.Context) error
-	ListMatches(ctx echo.Context) error
-	CreateMatch(ctx echo.Context) error
-	GetLeaderboard(ctx echo.Context) error
+	GetHealth(ctx *echo.Context) error
+	ListPlayers(ctx *echo.Context) error
+	CreatePlayer(ctx *echo.Context) error
+	ListMatches(ctx *echo.Context) error
+	CreateMatch(ctx *echo.Context) error
+	GetLeaderboard(ctx *echo.Context) error
 }
 
 func RegisterHandlers(e *echo.Echo, si ServerInterface) {

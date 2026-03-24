@@ -8,8 +8,8 @@ import (
 
 	"ralph-playground/internal/api"
 
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/echo/v5"
+	"github.com/labstack/echo/v5/middleware"
 	_ "modernc.org/sqlite"
 )
 
@@ -35,11 +35,11 @@ func main() {
 	}
 
 	e := echo.New()
-	e.HideBanner = true
 	e.Use(middleware.Recover())
-	e.Use(middleware.Logger())
+	e.Use(middleware.RequestLogger())
 
 	api.RegisterHandlers(e, apiServer)
+	registerFrontendRoutes(e)
 
 	port := os.Getenv("PORT")
 	if port == "" {
