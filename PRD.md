@@ -95,6 +95,13 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - Replaced removed v4 logger middleware usage with v5 request logger middleware and resolved v5 logger API differences in frontend asset bootstrapping.
 - Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check`.
 
+## Implementation update (2026-03-24-5)
+
+- Completed the highest-priority remaining UX task: redesigned the dashboard UI to be cleaner and more user-friendly while keeping all existing MVP workflows intact.
+- Reworked `frontend/src/routes/+page.svelte` into card-based sections with improved hierarchy, spacing, and responsive layout for forms and stats views.
+- Improved form and data readability with clearer helper text, polished status/message treatments, refined controls, and better match/leaderboard presentation.
+- Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check`.
+
 ---
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
