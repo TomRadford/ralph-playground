@@ -25,6 +25,7 @@ FROM alpine:3.21
 WORKDIR /app
 
 COPY --from=go-builder /out/foosball-server /app/foosball-server
+COPY --from=go-builder /app/openapi.yaml /app/openapi.yaml
 
 ENV PORT=8080
 ENV SQLITE_PATH=/data/foosball.db

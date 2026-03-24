@@ -39,6 +39,9 @@ func main() {
 	e.Use(middleware.RequestLogger())
 
 	api.RegisterHandlers(e, apiServer)
+	e.GET("/openapi.yaml", func(ctx *echo.Context) error {
+		return ctx.File("openapi.yaml")
+	})
 	registerFrontendRoutes(e)
 
 	port := os.Getenv("PORT")

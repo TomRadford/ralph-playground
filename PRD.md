@@ -108,6 +108,12 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - Updated mutable local UI state in `frontend/src/routes/+page.svelte` to use runes-based `$state(...)` and replaced deprecated `on:submit` with `onsubmit`.
 - Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check` with 0 errors and 0 warnings.
 
+## Implementation update (2026-03-24-7)
+
+- Completed the highest-priority remaining PRD task: exposed the OpenAPI contract over HTTP for tooling via `GET /openapi.yaml`.
+- Added a dedicated server route for the spec and ensured `openapi.yaml` is included in the final runtime Docker image so the endpoint works in container deployments.
+- Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check` with 0 errors and 0 warnings.
+
 ---
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
