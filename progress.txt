@@ -11,3 +11,8 @@
 - Added SQLite-backed storage for players and matches, including schema initialization on startup.
 - Updated the API handlers to read/write players, matches, and leaderboard calculations from the database.
 - Added startup configuration for an environment-driven DB path (`SQLITE_PATH`, default `./data/foosball.db`) and included the SQLite driver dependency.
+
+2026-03-24 - Task completed: Scaffold the SvelteKit SPA frontend with generated API client and TanStack Query.
+- Created a new `frontend/` SvelteKit TypeScript app and added TanStack Query for server state handling.
+- Added `@hey-api/openapi-ts` generation config/scripts and generated a typed client from `openapi.yaml` into `frontend/src/lib/api`.
+- Wired `QueryClientProvider` into the root layout, configured API client base URL defaults, and implemented an MVP dashboard page that fetches players, matches, and leaderboard data with clear loading/empty/error states.
