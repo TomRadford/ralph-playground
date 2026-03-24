@@ -84,6 +84,10 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - PLEASE FIX: `matchFormSuccess` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
   https://svelte.dev/e/non_reactive_update that dev server keep giving! MAKE SURE WE'RE USING SVELTE 5 BEST PRACTICES!!!
 
+## Implementation update (2026-03-24-3)
+
+- THE UI IS SO UGLY. MAKE IT PRETTY AND USER FRIENDLY!
+
 ---
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
