@@ -68,6 +68,12 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - **Stats rules:** A player gets a win/loss if they appear on the winning/losing side of a logged match; goals contribute to team totals already stored on the match.
 - **Auth:** None for v1.
 
+## Implementation update (2026-03-24)
+
+- Completed the highest-priority remaining MVP task in the web UI: users can now create players and record matches directly from the dashboard.
+- Added inline validation and feedback for both forms (required fields, score/date checks, duplicate-player prevention).
+- Connected successful writes to TanStack Query cache invalidation so players, matches, and leaderboard views refresh immediately.
+
 ---
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._

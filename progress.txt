@@ -16,3 +16,8 @@
 - Created a new `frontend/` SvelteKit TypeScript app and added TanStack Query for server state handling.
 - Added `@hey-api/openapi-ts` generation config/scripts and generated a typed client from `openapi.yaml` into `frontend/src/lib/api`.
 - Wired `QueryClientProvider` into the root layout, configured API client base URL defaults, and implemented an MVP dashboard page that fetches players, matches, and leaderboard data with clear loading/empty/error states.
+
+2026-03-24 - Task completed: Implement MVP dashboard write flows for players and matches.
+- Updated `frontend/src/routes/+page.svelte` to add an "Add player" form and a "Log match" form using the generated OpenAPI client and TanStack Query mutations.
+- Added client-side validation and user feedback for form errors/success, including duplicate-player prevention within a match.
+- Added query invalidation after successful mutations so players, matches, and leaderboard data refresh immediately.
