@@ -129,8 +129,15 @@ Match results and bragging rights live in chat threads or memory. There is no si
 - Added UI delete actions with confirmation prompts and TanStack Query invalidation so players, matches, and leaderboard views stay in sync after deletions.
 - Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check` with 0 errors and 0 warnings.
 
+## Implementation update (2026-03-24-10)
+
+- Completed the highest-priority remaining follow-up task: split the UI into dedicated section routes for a simpler, more focused experience.
+- Added a shared app shell with top navigation and moved workflows into separate pages: `/players`, `/matches`, and `/leaderboard`, while keeping all existing create/delete/log behaviors intact.
+- Added a cleaner overview landing page at `/` with quick section cards and live counts.
+- Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check` with 0 errors and 0 warnings.
+
 ### Remaining follow-up tasks
 
-- the UI needs to look more aesthetic and simpler at the same time with different routes for all the different sections
+- none currently identified
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._

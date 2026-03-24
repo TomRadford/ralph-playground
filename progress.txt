@@ -57,3 +57,9 @@
 - Implemented backend delete handlers in `internal/api/server.go`, including conflict protection that prevents deleting players referenced by existing matches.
 - Added delete controls to the dashboard player/match lists with confirmation prompts and query invalidation so the UI refreshes after deletes.
 - Verified all changes with `go test ./...` and `npm --prefix frontend run check` (0 errors, 0 warnings).
+
+2026-03-24 - Task completed: Split the UI into dedicated section routes.
+- Added a shared app shell in `frontend/src/routes/+layout.svelte` with primary navigation for overview, players, matches, and leaderboard.
+- Replaced the monolithic dashboard route with focused pages at `/players`, `/matches`, and `/leaderboard`, preserving existing create/delete/log functionality and validation.
+- Added a simplified overview page at `/` with quick links and live counts for players, matches, and rankings.
+- Verified all changes with `go test ./...` and `npm --prefix frontend run check` (0 errors, 0 warnings).
