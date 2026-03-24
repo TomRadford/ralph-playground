@@ -46,3 +46,8 @@
 - Added `GET /openapi.yaml` in the Go server so the contract can be fetched directly from the running app.
 - Updated the runtime Docker image to include `openapi.yaml`, ensuring the endpoint works in container deployments.
 - Verified all changes with `go test ./...` and `npm --prefix frontend run check` (0 errors, 0 warnings).
+
+2026-03-24 - Task completed: Add Makefile support for Docker container workflows.
+- Expanded root `Makefile` with `docker-build`, `docker-run`, and `docker-stop` targets for one-command local container usage.
+- Added configurable defaults (`IMAGE_NAME`, `IMAGE_TAG`, `PORT`, `DATA_DIR`, `CONTAINER_NAME`) and ensured `docker-run` creates the local data directory before mounting `/data`.
+- Verified all changes with `go test ./...` and `npm --prefix frontend run check` (0 errors, 0 warnings).

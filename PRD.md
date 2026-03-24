@@ -116,10 +116,15 @@ Match results and bragging rights live in chat threads or memory. There is no si
 
 ---
 
-## Implementation update (2026-03-24-7)
+## Implementation update (2026-03-24-8)
 
-- add a makefile for running docker container
+- Completed the highest-priority remaining PRD task: added Docker-focused Makefile targets to build and run the containerized app.
+- Added `docker-build`, `docker-run`, and `docker-stop` targets with configurable defaults (`IMAGE_NAME`, `IMAGE_TAG`, `PORT`, `DATA_DIR`, `CONTAINER_NAME`) so local container workflows are one-command operations.
+- Verification complete: `go test ./...` passes and frontend type checks pass via `npm --prefix frontend run check` with 0 errors and 0 warnings.
+
+### Remaining follow-up tasks
+
 - please allow me to delete players and matches
-- the UI needs to look more aeathetic and simpler at the same time with different routes for all the different sections
+- the UI needs to look more aesthetic and simpler at the same time with different routes for all the different sections
 
 _This PRD aligns with the engineering plan: OpenAPI-first stack, Echo, single Docker image, SQLite, SvelteKit + hey-api + TanStack Query._
