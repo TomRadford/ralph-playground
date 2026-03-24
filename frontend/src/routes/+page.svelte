@@ -12,19 +12,19 @@
 
 	const queryClient = useQueryClient();
 
-	let playerName = "";
-	let playerFormError = "";
-	let playerFormSuccess = "";
+	let playerName = $state("");
+	let playerFormError = $state("");
+	let playerFormSuccess = $state("");
 
-	let leftPlayer1Id = "";
-	let leftPlayer2Id = "";
-	let rightPlayer1Id = "";
-	let rightPlayer2Id = "";
-	let leftScore = 0;
-	let rightScore = 0;
-	let playedAtLocal = getNowLocalDateTimeValue();
-	let matchFormError = "";
-	let matchFormSuccess = "";
+	let leftPlayer1Id = $state("");
+	let leftPlayer2Id = $state("");
+	let rightPlayer1Id = $state("");
+	let rightPlayer2Id = $state("");
+	let leftScore = $state(0);
+	let rightScore = $state(0);
+	let playedAtLocal = $state(getNowLocalDateTimeValue());
+	let matchFormError = $state("");
+	let matchFormSuccess = $state("");
 
 	const playersQuery = createQuery(() => ({
 		queryKey: ["players"],
@@ -226,7 +226,7 @@
 		<article class="card">
 			<h2>Add player</h2>
 			<p class="card-help">Create someone once, then use them in every match.</p>
-			<form on:submit={handleCreatePlayer} class="stack">
+			<form onsubmit={handleCreatePlayer} class="stack">
 				<label for="player-name">Player name</label>
 				<div class="form-row">
 					<input
@@ -275,7 +275,7 @@
 		{#if (playersQuery.data?.length ?? 0) < 2}
 			<p class="status">Add at least two players before logging a match.</p>
 		{:else}
-			<form on:submit={handleCreateMatch} class="stack">
+			<form onsubmit={handleCreateMatch} class="stack">
 				<div class="grid">
 					<label>
 						Left player 1
